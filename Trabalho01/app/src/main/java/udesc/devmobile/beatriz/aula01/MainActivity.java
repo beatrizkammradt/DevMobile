@@ -21,13 +21,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void getIntervalo(View view) {
-        int min = getNumero(R.id.minimo);
-        int max = getNumero(R.id.maximo);
+    public void getInterval(View view) {
+        int min = getNum(R.id.numMinimo);
+        int max = getNum(R.id.numMaximo);
 
-        if(validaNumeros(min, max)){
-            int intervalo = max - min;
-            geradorNumero(min, intervalo);
+        if(validaNum(min, max)){
+            int interval = max - min;
+            geradorNumero(min, interval);
         }
         else
             Toast.makeText(this, "Valores inválidos!!",Toast.LENGTH_SHORT).show();
@@ -35,17 +35,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void geradorNumero(int min, int intervalo) {
         Random random = new Random();
-        int n = random.nextInt( intervalo++)+min;
-        TextView resultado = findViewById(R.id.resultado);
-        resultado.setText("Resultado: " + Integer.toString(n));
+        int n = random.nextInt( intervalo + 1)+min;
+        TextView result = findViewById(R.id.resultado);
+        result.setText("Resultado: " + Integer.toString(n));
     }
 
-    private int getNumero(int input){
-        EditText input;
+    private int getNum(int input){
+        EditText objeto;
 
         try{
-            input = findViewById(input);
-            int valor = Integer.parseInt(input.getText().toString());
+            objeto = findViewById(input);
+            int valor = Integer.parseInt(objeto.getText().toString());
             return valor;
         }
         catch (Exception e){
@@ -53,13 +53,17 @@ public class MainActivity extends AppCompatActivity {
             return -1;
         }
         finally {
-            input = null;
+            objeto = null;
         }
     }
 
-    private boolean validaNumeros(int min, int max){
-        if(min == -1 || max == 1) return false;
-        if(min >= max) return false;
+    private boolean validaNum(int min, int max){
+        if(min == -1 || max == 1){
+            return false;
+        }
+        if(min >= max){
+            return false;
+        }
         return true;
     }
 
